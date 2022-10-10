@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2 class="mb-3 text-center">Liste des pays représentés durant les JO</h2>
+    <hr>
+        {{ form(form) }}
+    <hr>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Drapeau</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pays in paysListe %}
+                <tr>
+                    <td>{{ pays.id }}</td>
+                    <td>{{ pays.nom }}</td>
+                    <td><img src="{{ asset('assets/img/upload/drapeau/' ~ pays.drapeau) }}" alt=""></td>
+                    <td>
+                        <a href="{{ path('update_pays', {id:pays.id}) }}"><button class="btn btn-info">Modifier</button></a>
+                        <a href="{{ path('delete_pays', {id:pays.id}) }}"><button class="btn btn-danger" onclick="alert('Êtes-vous sûr?')">Supprimer</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun pays pour le moment</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
